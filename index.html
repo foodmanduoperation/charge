@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delivery Charge Calculator</title>
+    <style>
+      /* Add CSS styles here */
+    </style>
+  </head>
+  <body>
+    <h1>Delivery Charge Calculator</h1>
+    <form>
+      <label for="distance">Distance from restaurant to customer (km):</label>
+      <input type="number" id="distance" name="distance"><br><br>
+      <label for="order_value">Order value (in rupees):</label>
+      <input type="number" id="order_value" name="order_value"><br><br>
+      <button type="button" onclick="calculateDeliveryCharge()">Calculate Delivery Charge</button><br><br>
+      <label for="delivery_charge">Delivery charge (in rupees):</label>
+      <input type="number" id="delivery_charge" name="delivery_charge" readonly>
+    </form>
+    <script>
+      // Add JavaScript code here
+      function calculateDeliveryCharge() {
+        var distance = parseFloat(document.getElementById("distance").value);
+        var order_value = parseFloat(document.getElementById("order_value").value);
+        var BASE_DELIVERY_CHARGE = 50.00;
+        var delivery_charge;
+
+        if (order_value < 1000) {
+          delivery_charge = BASE_DELIVERY_CHARGE;
+          if (distance > 2) {
+              delivery_charge += (distance - 2) * 15.00;
+              if (distance > 6) {
+                  delivery_charge = 50.00 + (4 * 15.00) + ((distance - 6) * 20.00);
+              }
+          }
+        } else if (order_value < 1500) {
+          delivery_charge = BASE_DELIVERY_CHARGE;
+          if (distance > 2) {
+              delivery_charge += (distance - 2) * 10.00;
+              if (distance > 6) {
+                  delivery_charge = 50.00 + (4 * 10.00) + ((distance - 6) * 15.00);
+              } else {
+                  delivery_charge += (distance - 2) * 10.00;
+              }
+          }
+        } else {
+          delivery_charge = 50.00;
+        }
+
+        document.getElementById("delivery_charge").value = delivery_charge.toFixed(2);
+      }
+    </script>
+  </body>
+</html>
